@@ -1,30 +1,38 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import { routes } from 'vue-router/auto-routes'
+
+import { router } from './router'
+
+console.log('【APP ~ routes】\n', router.options.routes, '\n', routes)
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <ElConfigProvider
+    :locale="zhCn"
+    :button="{ autoInsertSpace: true }"
+    :message="{ max: 3 }"
+    :value-on-clear="() => undefined"
+    :empty-values="[undefined, null]"
+  >
+    <RouterView />
+  </ElConfigProvider>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+<style lang="scss">
+/** el_table 奇偶行不同的颜色 */
+.el-table__body {
+  --table_row_level-1: #c6e2ff;
+  --table_row_level-2: #d1edc4;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.dark {
+  .el-table__body {
+    --table_row_level-1: #213d5b;
+    --table_row_level-2: #2d481f;
+  }
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.el-link + .el-link {
+  margin-left: 12px;
 }
 </style>
